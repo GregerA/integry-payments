@@ -1,4 +1,5 @@
 <?php
+
 //  Payment processor for Auriga ePayment
 //
 //  by Greger Andersson, Electrokit Sweden AB
@@ -21,7 +22,7 @@ class AurigaePayment extends ExternalPayment
 		// version
 		$params['Version'] = "3";		
 		// A seller reference number for a transaction
-		$params['Customer_refno'] = $this->details->invoiceID->get();//.mt_rand();
+		$params['Customer_refno'] = $this->details->invoiceID->get();   //.mt_rand();  may need to add somthing if Auriga does not handle duplicate order numbers (in case of error) 
 		// The currency code of the payment amount.
 		$params['Currency'] = $this->details->currency->get();
 		// The payment amount
@@ -193,8 +194,8 @@ class AurigaePayment extends ExternalPayment
 		$params['Customer_refno'] = $this->order->getID();
 		
 		$params['Transaction_id'] = $this->details->gatewayTransactionID->get();
+
 		// The payment amount
-		
 		$params['Amount'] = round($this->details->amount->get() * 100);	
 		
 		if ($this->getConfigValue('test'))
